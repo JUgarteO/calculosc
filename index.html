@@ -36,11 +36,11 @@ function oninputFunct() {
     var p_40 = 0.40;
     var p_35 = 0.35;
     
-    document.getElementById("output1").innerHTML = "$" + p_70*prom;
-    document.getElementById("output2").innerHTML = "$" + p_55*prom;
-    document.getElementById("output3").innerHTML = "$" + p_45*prom;
-    document.getElementById("output4").innerHTML = "$" + p_40*prom;
-    document.getElementById("output5").innerHTML = "$" + p_35*prom;
+    document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
+    document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
+    document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
+    document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
+    document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));
                       }
 </script>
 
@@ -119,4 +119,3 @@ th, td {
     
 </body>
 </html>
-
