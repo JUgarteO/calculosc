@@ -1,0 +1,50 @@
+<p>Si usted tiene un CONTRATO A PLAZO INDEFINIDO puede calcular el valor que le deben pagar los próximos meses según la "Ley de Protección al Empleo". A continuación escriba las remuneraciones solicitadas. <i>(No incluir puntos, ni comas).</i></p>
+
+<p>enero   :<input type="$number" id="first-value" oninput="oninputFunct()"></p>
+<p>febrero:<input type="$number" id="second-value" oninput="oninputFunct()"></p>
+<p>marzo :<input type="$number" id="third-value" oninput="oninputFunct()"></p>
+
+<hr>
+
+<p>El pago de abril será del 70%</p>
+<p id="output1"></p>
+
+<p>El pago de mayo será del 55%</p>
+<p id="output2"></p>
+
+<p>El pago de junio será del 45%</p>
+<p id="output3"></p>
+
+<p>El pago de julio será del 40%</p>
+<p id="output4"></p>
+
+<p>El pago de agosto será del 35%</p>
+<p id="output5"></p>
+
+<script>
+function oninputFunct() {
+    var enero = +document.getElementById("first-value").value;
+    var febrero = +document.getElementById("second-value").value;
+    var marzo = +document.getElementById("third-value").value;
+    
+    var suma = enero + febrero + marzo;
+    var prom = suma/3;
+    
+    var p_70 = 0.70;
+    var p_55 = 0.55;
+    var p_45 = 0.45;
+    var p_40 = 0.40;
+    var p_35 = 0.35;
+    
+    document.getElementById("output1").innerHTML = "$" + p_70*prom;
+    document.getElementById("output2").innerHTML = "$" + p_55*prom;
+    document.getElementById("output3").innerHTML = "$" + p_45*prom;
+    document.getElementById("output4").innerHTML = "$" + p_40*prom;
+    document.getElementById("output5").innerHTML = "$" + p_35*prom;
+                      }
+</script>
+
+<hr>
+
+<p><i>* La Ley establece, que la remuneración es aquella de carácter imponible devengadas en los últimos tres meses en que se registren cotizaciones, anteriores al inicio de declaración de autoridad.</p>
+<p>** Aunque los fondos individuales de las y los Trabajadores sean insuficientes, se cargarán al Fondo de Cesantía Solidario para pagar los topes mínimos.</i></p>
