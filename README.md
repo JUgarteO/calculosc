@@ -1,5 +1,9 @@
 # calculosc
-Página web diseñada para facilitar el cálculo de pagos por el seguro de cesantía a los trabajadores de plazo fijo, en que las empresas se acogieron a la "Ley de Protección del Empleo" en Chile, por la contingencia del COVID-19.
+https://jugarteo.github.io/calculosc
 
-Este trabajo fue realizado por:
+Página web diseñada para ayudar a las personas que tengan contrato con a las empresas que se acogieron a la "Ley de Protección al Empleo" por la contingencia del COVID-19. Es preciso definir que esto aplica para los trabajadores con contrato de plazo fijo en Chile.
+
+Se deben ingresar las tres ultimas remuneraciones en que se depositó el sueldo antes de acogerse a esta Ley, y automáticamente se completará una tabla con los valores que se le debe pagar cada mes, permitiendo proyectar un valor estimativo.
+
+Esta página web fue diseñada por:
 Héctor Valdés, Remigio Chandía y Jorge Ugarte.
