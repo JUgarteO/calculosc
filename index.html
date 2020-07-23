@@ -62,7 +62,7 @@ https://jugarteo.github.io/calculosc/
         var p_45 = 0.45;
         var p_40 = 0.40;
         var p_35 = 0.35;
-    document.getElementById("output0").innerHTML = "El monto recibido será de: " + new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_10));
+    document.getElementById("output0").innerHTML = "El pago total será aproximadamente: " + new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_10));
     document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
     document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
     document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
@@ -74,24 +74,26 @@ https://jugarteo.github.io/calculosc/
             if (event.keyCode == 13) {
                 document.getElementById(inputS).focus();}
     });}
-    </script>
+        </script>
     </head>
     <body>
         <h1>Calcula tu retiro de fondos de la AFP (10%)</h1>
         <p>Ingresa tu monto acumulado en la AFP  $ <input type="tel" pattern="[0-9.]*" id="0-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('0-value', 'first-value')"></p>
         <p id="output0"></p>
         <p>El pago se hará en dos cuotas: 50% En un plazo de 10 días hábiles, tras presentar la solicitud en la AFP, y 50% en un plazo máximo de 30 días hábiles a contar del desembolso anterior.</p>
-    <br>
-    <hr>
+        <p><i>El valor puede variar, ya que este monto fue calculado con el valor UF del día 22 de julio 2020</p>
+        <center><code>UF: $29.016 ;35UF: $1.015.572; 150UF: $4.352.455</code></center> 
+        <br>
+        <hr>
         <h1>Calculadora de Pago "Ley de Protección al Empleo”.</h1>
         <p>Si usted tiene un CONTRATO A PLAZO INDEFINIDO, puedes conocer el valor que te deben pagar en los próximos 5 meses.</p>
         <p>Escriba las siguientes remuneraciones.*</p>
-    <div class="form-group">
+        <div class="form-group">
         <p>enero  $ <input type="tel" pattern="[0-9.]*" id="first-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('first-value', 'second-value')"></p>
         <p>febrero$ <input type="tel" pattern="[0-9.]*" id="second-value" class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('second-value', 'third-value')"></p>
         <p>marzo $  <input type="tel" pattern="[0-9.]*" id="third-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('third-value', '')" ></p>
-    </div>
-    <div>
+        </div>
+        <div>
         <table>
             <caption>En la tercera columna "Cálculo Remuneración" aparecerá el promedio de los 3 meses con el porcentaje correspondiente, si este monto es menor al "Valor Inferior", se pagará el monto más alto, y viceversa con el "Valor Superior".</caption>
             <tr>
@@ -136,7 +138,7 @@ https://jugarteo.github.io/calculosc/
                     <td>$175.000</td>
                     <td>$326.478</td>
                 </tr>
-        </table>
+    </table>
     </div>
         <p>Lo primero que debes saber es que, inicialmente se ocuparán los fondos de la Cuenta Individual y luego cuando estos recursos se acaben, en forma automática operará el uso del Fondo Solidario de Cesantía.</p>
         <p><i>La fuente de información es la página oficial del Ministerio del Trabajo y Previsión Social. Plan de Acción COVID-19. Gobierno de Chile 2020.</p>
