@@ -4,68 +4,99 @@ Date of creation: April 10, 2020
 https://jugarteo.github.io/calculosc/
 \--> 
 
-
-
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
-<title>Calculadora $</title>
-    
-<link rel="shortcut icon" href="https://raw.githubusercontent.com/JUgarteO/calculosc/master/favicon/favicon.ico" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-144x144.png?raw=true" />
-<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-120x120.png?raw=true" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-72x72.png?raw=true" />
-<link rel="apple-touch-icon-precomposed" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/favicon-128.png?raw=true" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/JUgarteO/calculosc/master/favicon/favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-144x144.png?raw=true" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-120x120.png?raw=true" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-72x72.png?raw=true" />
+    <link rel="apple-touch-icon-precomposed" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/favicon-128.png?raw=true" />
 
-<style>
-table, th, td   {
-  border: 1px solid black;
-  border-collapse: collapse;
+    <head>
+
+    <title>Calculadora $</title>
+    <style>
+    table, th, td   {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td  {
+        padding: auto;
+        text-align: center;
+    }
+    body    { 
+        font-family: -apple-system,  
+        BlinkMacSystemFont, sans-serif; 
+    }  
+    </style>
+    <script>
+
+    function oninputFunct() {
+        var fondo = +document.getElementById("0-value").value;
+        var enero = +document.getElementById("first-value").value;
+        var febrero = +document.getElementById("second-value").value;
+        var marzo = +document.getElementById("third-value").value;
+        var pago = fondo * 0.1;
+        var ufmin = 1015572;
+        var ufmax = 4352455;
+        var p_10;
+        if (pago >= ufmax) {
+            p_10 = ufmax 
+            } else if (ufmin < fondo && fondo < 10000000) {
+            p_10 = ufmin
+            } else {
+            p_10 = fondo;
                 }
-th, td  {
-  padding: 5px;
-  text-align: center;
-        }
-</style>
-</head>
-<body>
-
-
-<style> 
-        body { 
-            font-family: -apple-system,  
-                BlinkMacSystemFont, sans-serif; 
-        } 
-    </style> 
-<h1 style="text-align:center;">Calculadora de Pago "Ley de Protección al Empleo”.</h1>
-
-<p style="text-align:center;">Si usted tiene un CONTRATO A PLAZO INDEFINIDO, en esta página puede conocer el valor que le deben pagar en los próximos 5 meses.</p>
-
-<p style="text-align:center;"> A continuación escriba sus 3 últimas remuneraciones.*</p>
-
-<p style="text-align:center;">enero   $<input type="tel" pattern="[0-9.]*" id="first-value" oninput="oninputFunct()"></p>
-<p style="text-align:center;">febrero$<input type="tel" pattern="[0-9.]*" id="second-value" oninput="oninputFunct()"></p>
-<p style="text-align:center;">marzo $<input type="tel" pattern="[0-9.]*" id="third-value" oninput="oninputFunct()"></p>
-
-
-
-
-<div>
-<table style="width:60%">
+        var suma = enero + febrero + marzo;
+        var prom = suma/3;
+        var p_70 = 0.70;
+        var p_55 = 0.55;
+        var p_45 = 0.45;
+        var p_40 = 0.40;
+        var p_35 = 0.35;
+    document.getElementById("output0").innerHTML = "Recibiras: " + new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_10));
+    document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
+    document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
+    document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
+    document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
+    document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));
+                      }
+    function nextFocus(inputF, inputS)    {
+        document.getElementById(inputF).addEventListener('keydown', function(event) {
+            if (event.keyCode == 13) {
+                document.getElementById(inputS).focus();}
+    });}
+</script>
+    </head>
+    <body>
+    <h1 style="text-align:center;">Calcula tu retiro de fondos de AFP (10%)</h1>
+    <p style="text-align:center;">Ingresa tu monto acumulado en la AFP  $ <input type="tel" pattern="[0-9.]*" id="0-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('0-value', 'first-value')"></p>
+    <p style="text-align:center;" id="output0"></p>
+    <p style="text-align:center;">El pago se hará en dos cuotas: 50% En un plazo de 10 días hábiles, tras presentar la solicitud en la AFP, y 50% en un plazo máximo de 30 días hábiles a contar del desembolso anterior.</p>
+<br>
+<hr>
+    <h1 style="text-align:center;">Calculadora de Pago "Ley de Protección al Empleo”.</h1>
+    <p style="text-align:center;">Si usted tiene un CONTRATO A PLAZO INDEFINIDO, en esta página puede conocer el valor que le deben pagar en los próximos 5 meses.</p>
+    <p style="text-align:center;"> A continuación escriba sus 3 últimas remuneraciones.*</p>
+    
+    <div class="form-group">
+        <p style="text-align:center;">enero  $ <input type="tel" pattern="[0-9.]*" id="first-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('first-value', 'second-value')"></p>
+        <p style="text-align:center;">febrero$ <input type="tel" pattern="[0-9.]*" id="second-value" class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('second-value', 'third-value')"></p>
+        <p style="text-align:center;">marzo $  <input type="tel" pattern="[0-9.]*" id="third-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('third-value', '')" ></p>
+    </div>
+    <div>
+<table style="width:60%" class="table table-dark" >
 <table border="1" style="margin: 0 auto;">
   <caption style="text-align:center;">En la tercera columna "Cálculo Remuneración" aparecerá el promedio de los 3 meses con el porcentaje correspondiente, si este monto es menor al "Valor Inferior", se pagará el monto más alto, y viceversa con el "Valor Superior".</caption>
-
   <tr>
     <th>Meses</th>
     <th>Promedio Remuneración</th>
-<th>Cálculo Remuneración</th>
+    <th>Cálculo Remuneración</th>
     <th>Valor Inferior</th>
     <th>Valor Superior</th>
-    
   </tr>
-  
   <tr>
     <td>abril</rtd>
     <td>70%</td>
@@ -73,37 +104,33 @@ th, td  {
     <td>$225.000</td>
     <td>$652.956</td>
   </tr>
-  
   <tr>
     <td>mayo</td>
     <td>55%</td>
- <td><p id="output2"></p></td>
-        <td>$225.000</td>
-      <td>$513.038</td>
+    <td><p id="output2"></p></td>
+    <td>$225.000</td>
+    <td>$513.038</td>
   </tr>
-  
   <tr>
     <td>junio</td>
     <td>45%</td>
- <td><p id="output3"></p></td>
-        <td>$225.000</td>
-      <td>$419.757</td>
+    <td><p id="output3"></p></td>
+    <td>$225.000</td>
+    <td>$419.757</td>
   </tr>
-    
   <tr>
     <td>julio</td>
     <td>40%</td>
- <td><p id="output4"></p></td>
-        <td>$200.000</td>
-      <td>$373.118</td>
+    <td><p id="output4"></p></td>
+    <td>$200.000</td>
+    <td>$373.118</td>
   </tr>
-    
   <tr>
     <td>agosto</td>
     <td>35%</td>
- <td><p id="output5"></p></td>
-        <td>$175.000</td>
-      <td>$326.478</td>
+    <td><p id="output5"></p></td>
+    <td>$175.000</td>
+    <td>$326.478</td>
   </tr>
 </table>
 </div>
@@ -111,50 +138,7 @@ th, td  {
 <p style="text-align:center;"><i>La fuente de información es la página oficial del Ministerio del Trabajo y Previsión Social. Plan de Acción COVID-19. Gobierno de Chile 2020.</p>
 <p style="text-align:center;"><a href="http://www.protecciondelempleo.cl">http://www.protecciondelempleo.cl</a></p></i></p>
 <p style="text-align:center;"><i>* La Ley establece que, la remuneración es aquella de carácter imponible devengadas en los últimos tres meses en que se registren cotizaciones, anteriores al inicio de declaración de autoridad.</p>
-
 </body>
-
-<!--
-<p>El pago de abril será del 70%:</p>
-<p id="output1"></p>
-
-<p>El pago de mayo será del 55%:</p>
-<p id="output2"></p>
-
-<p>El pago de junio será del 45%:</p>
-<p id="output3"></p>
-
-<p>El pago de julio será del 40%:</p>
-<p id="output4"></p>
-
-<p>El pago de agosto será del 35%:</p>
-<p id="output5"></p>
-\--> 
-
-<script>
-function oninputFunct() {
-    var enero = +document.getElementById("first-value").value;
-    var febrero = +document.getElementById("second-value").value;
-    var marzo = +document.getElementById("third-value").value;
-    
-    var suma = enero + febrero + marzo;
-    var prom = suma/3;
-    
-    var p_70 = 0.70;
-    var p_55 = 0.55;
-    var p_45 = 0.45;
-    var p_40 = 0.40;
-    var p_35 = 0.35;
-    
-    document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
-    document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
-    document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
-    document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
-    document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));
-                      }
-</script>
-
 <hr>
 </html>
-
 <p style="text-align:center;">© Copyright 2020 <a href="https://github.com/showiz">showiz</a>, <a href="https://github.com/lemon4k">lemon4k</a> & <a href="https://github.com/jugarteo">jugarte</a></p>
