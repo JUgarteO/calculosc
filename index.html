@@ -44,8 +44,9 @@ https://jugarteo.github.io/calculosc/
         var febrero = +document.getElementById("second-value").value;
         var marzo = +document.getElementById("third-value").value;
         var pago = fondo * 0.1;
-        var ufmin = 1015572;
-        var ufmax = 4352455;
+        var uf = 28672;
+        var ufmin = uf*35;
+        var ufmax = uf*150;
         var p_10;
             if (fondo >= ufmax*10) {
             p_10 = ufmax } 
@@ -81,8 +82,8 @@ https://jugarteo.github.io/calculosc/
         <p>Ingresa tu monto acumulado en la AFP  $ <input type="tel" pattern="[0-9.]*" id="0-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('0-value', 'first-value')"></p>
         <p id="output0"></p>
         <p>Este pago se hará en dos cuotas: 50% En un plazo de 10 días hábiles, tras presentar la solicitud en la AFP, y 50% en un plazo máximo de 30 días hábiles a contar del desembolso anterior.</p>
-        <p><i>El valor puede variar, ya que este monto fue calculado con el valor UF del día 22 de julio 2020</i></p>
-        <center><code>UF: $29.016 ;35UF: $1.015.572; 150UF: $4.352.455</code></center> 
+        <p><i>El valor puede variar, ya que este monto fue calculado con el valor UF del día 27 de julio 2020</i></p>
+        <center><code>UF: $28.672 ; 35 UF: $1.003.522 ; 150 UF: $4.300.809</code></center> 
         <br>
         <hr>
         <h1>Calculadora de Pago "Ley de Protección al Empleo”.</h1>
