@@ -1,11 +1,7 @@
-<!--Copyright (C) {2020} @showiz, @lemon4k y @jugarteo
-web app: Calculadora "Retiro 10% + Ley de Protección al Empleo Chile 2020"
-Date of creation: April 10, 2020
-https://jugarteo.github.io/calculosc/
-\--> 
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Página web que permite calcular el retiro del 10% de las AFP">
         <link rel="shortcut icon" href="https://raw.githubusercontent.com/JUgarteO/calculosc/master/favicon/favicon.ico" />
@@ -13,90 +9,90 @@ https://jugarteo.github.io/calculosc/
         <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-120x120.png?raw=true" />
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-72x72.png?raw=true" />
         <link rel="apple-touch-icon-precomposed" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/favicon-128.png?raw=true" />
-        <title>Calculadora $</title>
+        <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+        <title>Cálculo $</title>
         <style>
-        table, th, td   {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td  {
-            padding: auto;
-            text-align: center;
-        }
-        body    { 
-            font-family: -apple-system,  
-            BlinkMacSystemFont, sans-serif;
-        }
-        p   {
-            text-align: center;
-        }
-        caption{
-            text-align: center;
-        }
-        h1{
-            text-align: center;
-        }
+            h1, h2  {text-align: center;}
+            p   {text-align: center;}
+            body, h1, h2, h3, h4    {font-family: -apple-system, BlinkMacSystemFont, sans-serif;} 
+            table {width:auto;margin:0 auto;}
         </style>
         <script>
-    function oninputFunct() {
-        var fondo = +document.getElementById("0-value").value;
-        var enero = +document.getElementById("first-value").value;
-        var febrero = +document.getElementById("second-value").value;
-        var marzo = +document.getElementById("third-value").value;
-        var pago = fondo * 0.1;
-        var uf = 28672.06;
-        var ufmin = uf*35;
-        var ufmax = uf*150;
-        var p_10;
-            if (fondo >= ufmax*10) {
-            p_10 = ufmax } 
-            else if (ufmin*10 <= fondo && fondo < ufmax*10) {
-            p_10 = pago} 
-            else if (fondo > ufmin && fondo < ufmin*10) {
-            p_10 = ufmin}
-             else {
-            p_10 = fondo}
-        var suma = enero + febrero + marzo;
-        var prom = suma/3;
-        var p_70 = 0.70;
-        var p_55 = 0.55;
-        var p_45 = 0.45;
-        var p_40 = 0.40;
-        var p_35 = 0.35;
-    document.getElementById("output0").innerHTML = "El pago total será aproximadamente: " + new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_10));
-    document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
-    document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
-    document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
-    document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
-    document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));  
-                      }
-    function nextFocus(inputF, inputS)    {
-        document.getElementById(inputF).addEventListener('keydown', function(event) {
-            if (event.keyCode == 13) {
-                document.getElementById(inputS).focus();}
-    });}
+            //var contenido = document.querySelector('#contenido')
+            function oninputFunct() {
+                fetch('https://mindicador.cl/api/uf')
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data.serie['0'])
+                var fondo = document.getElementById("fondo").value;
+                var pago = fondo * 0.1;
+                var ufmin;
+                var ufmax;
+                ufmin = data.serie['0'].valor.toFixed(2)*35
+                ufmax = data.serie['0'].valor.toFixed(2)*150          
+                fecha = data.serie['0'].fecha.substring(0,10)
+                ufhoy = data.serie['0'].valor.toFixed()
+                document.getElementById("uf").innerHTML =`UF de hoy: $${ufhoy .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
+                document.getElementById("fecha").innerHTML =`Fecha: ${fecha}`;
+                    if (fondo >= ufmax*10) {
+                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(ufmax) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>` }
+                    else if (ufmin*10 <= fondo && fondo < ufmax*10) {
+                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(pago) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
+                    else if (fondo > ufmin && fondo < (ufmin)*10) {
+                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(ufmin) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
+                    else {
+                        contenido.innerHTML = `<h4>Tu retiro será de: $${fondo .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
+                    })
+                var enero = +document.getElementById("first-value").value;
+                var febrero = +document.getElementById("second-value").value;
+                var marzo = +document.getElementById("third-value").value;
+                var suma = enero + febrero + marzo;
+                var prom = suma/3;
+                var p_70 = 0.70;
+                var p_55 = 0.55;
+                var p_45 = 0.45;
+                var p_40 = 0.40;
+                var p_35 = 0.35;
+                document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
+                document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
+                document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
+                document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
+                document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));  
+            } 
+            function nextFocus(inputF, inputS)    {
+            document.getElementById(inputF).addEventListener('keydown', function(event) {
+                if (event.keyCode == 13) {
+                    document.getElementById(inputS).focus();}
+            });}
         </script>
     </head>
     <body>
-        <h1>Calcula tu retiro de fondos de la AFP (10%)</h1>
-        <p>Ingresa tu monto acumulado en la AFP  $ <input type="tel" pattern="[0-9.]*" id="0-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('0-value', 'first-value')"></p>
-        <p id="output0"></p>
-        <p>Este pago se hará en dos cuotas: 50% En un plazo de 10 días hábiles tras presentar la solicitud en la AFP, y 50% en un plazo máximo de 30 días hábiles a contar del desembolso anterior.</p>
-        <p><i>El valor puede variar debido a que este monto fue calculado con el valor UF del día 27 de julio 2020</i></p>
-        <center><code>UF: $28.672,06; 35 UF: $1.003.522; 150 UF: $4.300.809</code></center> 
-        <br>
+        <h1>Calcula tu retiro de fondos de la AFP (10%)</h2>
+        <br>  
+        <p>Ingresa tu monto acumulado en la AFP $ <input aria-label="Amount (to the nearest dollar)" pattern="[0-9.]*" id="fondo" min="0" oninput="oninputFunct()" onkeypress="nextFocus('fondo', 'first-value')" ></p>
+        <div class="container text-center">
+        <div class="mt-5" id="contenido"></div>
+        <ul class="list-inline">
+            <samp><li><p id="uf"></p></li>
+            <li><p id="fecha"></p></li></samp>
+        </ul>
+        <p>Este pago se realizará en dos cuotas: 50% En un plazo de 10 días hábiles tras presentar la solicitud en la AFP, y 50% en un plazo máximo de 30 días hábiles a contar del desembolso anterior.</p>
+        </div>
         <hr>
         <h1>Calculadora de Pago "Ley de Protección al Empleo”.</h1>
+        <br>
         <p>Si usted tiene un CONTRATO A PLAZO INDEFINIDO, puedes conocer el valor que te deben pagar en los próximos 5 meses.</p>
         <p>Escriba las siguientes remuneraciones.*</p>
         <div class="form-group">
-        <p>enero  $ <input type="tel" pattern="[0-9.]*" id="first-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('first-value', 'second-value')"></p>
-        <p>febrero$ <input type="tel" pattern="[0-9.]*" id="second-value" class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('second-value', 'third-value')"></p>
-        <p>marzo $  <input type="tel" pattern="[0-9.]*" id="third-value"  class="form-control" oninput="oninputFunct()" onkeypress="nextFocus('third-value', '')" ></p>
+        <p>enero  $ <input type="tel" pattern="[0-9.]*" id="first-value"  oninput="oninputFunct()" onkeypress="nextFocus('first-value', 'second-value')"></p>
+        <p>febrero$ <input type="tel" pattern="[0-9.]*" id="second-value" oninput="oninputFunct()" onkeypress="nextFocus('second-value', 'third-value')"></p>
+        <p>marzo $  <input type="tel" pattern="[0-9.]*" id="third-value"  oninput="oninputFunct()" onkeypress="nextFocus('third-value', '')" ></p>
         </div>
-        <div>
-        <table style="margin: 0 auto;">
-            <caption>En la tercera columna "Cálculo Remuneración" aparecerá el promedio de los 3 meses con el porcentaje correspondiente, si este monto es menor al "Valor Inferior", se pagará el monto más alto, y viceversa con el "Valor Superior".</caption>
+        <div class="table-responsive-sm">
+        <table style="margin: 0 auto;" class="table table-striped table table-bordered table table-hover table table-sm mx-auto w-auto table text-center" >
+            <caption><center>En la tercera columna "Cálculo Remuneración" aparecerá el promedio de los 3 meses con el porcentaje correspondiente, si este monto es menor al "Valor Inferior", se pagará el monto más alto, y viceversa con el "Valor Superior".</center></caption>
             <tr>
                 <th>Meses</th>
                 <th>Promedio Remuneración</th>
@@ -139,13 +135,15 @@ https://jugarteo.github.io/calculosc/
                     <td>$175.000</td>
                     <td>$326.478</td>
                 </tr>
-    </table>
-    </div>
+            </table>
+        </div>
         <p>Lo primero que debes saber es que, inicialmente se ocuparán los fondos de la Cuenta Individual y luego cuando estos recursos se acaben, en forma automática operará el uso del Fondo Solidario de Cesantía.</p>
-        <p><i>La fuente de información es la página oficial del Ministerio del Trabajo y Previsión Social. Plan de Acción COVID-19. Gobierno de Chile 2020.</p>
-        <p><a href="http://www.protecciondelempleo.cl">http://www.protecciondelempleo.cl</a></p></i></p>
-        <p><i>* La Ley establece que, la remuneración es aquella de carácter imponible devengadas en los últimos tres meses en que se registren cotizaciones, anteriores al inicio de declaración de autoridad.</p>
+        <p>La fuente de información es la página oficial del Ministerio del Trabajo y Previsión Social. Plan de Acción COVID-19. Gobierno de Chile 2020</p> 
+        <p><i><a href="http://www.protecciondelempleo.cl">http://www.protecciondelempleo.cl</a></i></p>
+        <p><i>* La Ley establece que, la remuneración es aquella de carácter imponible devengadas en los últimos tres meses en que se registren cotizaciones, anteriores al inicio de declaración de autoridad.</i></p>  
     </body>
-    <hr>
+        <hr>
+    <footer class="page-footer">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:<a href="https://github.com/showiz">showiz</a>, <a href="https://github.com/lemon4k">lemon4k</a>, <a href="https://github.com/jugarteo">Sebastián Moltedo</a> & <a href="https://github.com/jugarteo">jugarte</a></div>
+    </footer>
 </html>
-    <p>© Copyright 2020 <a href="https://github.com/showiz">showiz</a>, <a href="https://github.com/lemon4k">lemon4k</a> & <a href="https://github.com/jugarteo">jugarte</a></p>
