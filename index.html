@@ -1,211 +1,94 @@
-<html lang="es-CL">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Página web que permite calcular el retiro del 10% de las AFP y los pagos respecto a la Ley de Protección al Empleo>
-        <link rel="shortcut icon" href="https://raw.githubusercontent.com/JUgarteO/calculosc/master/favicon/favicon.ico" />
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-144x144.png?raw=true" />
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-120x120.png?raw=true" />
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/apple-touch-icon-72x72.png?raw=true" />
-        <link rel="apple-touch-icon-precomposed" href="https://github.com/JUgarteO/calculosc/blob/master/favicon/favicon-128.png?raw=true" />
-        <!--   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes"> -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
-        <title>Cálculo $</title>
-        <style>
-            p , h1, h2  {text-align: center;}
-            body, h1, h2, h3, h4    {font-family: -apple-system, BlinkMacSystemFont, sans-serif;} 
-            table   {width: auto;margin: 0 auto;}
-        </style>
-        <script>
-            //var contenido = document.querySelector('#contenido')
-            function oninputFunct() {
-                fetch('https://mindicador.cl/api/uf')
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data.serie['0'])
-                var fondo = document.getElementById("fondo").value;
-                var pago = fondo * 0.1;
-                var ufmin;
-                var ufmax;
-                ufmin = data.serie['0'].valor.toFixed(2)*35
-                ufmax = data.serie['0'].valor.toFixed(2)*150          
-                fecha = data.serie['0'].fecha.substring(0,10)
-                ufhoy = data.serie['0'].valor.toFixed()
-                document.getElementById("uf").innerHTML =`UF de hoy ≈ $${ufhoy .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
-                document.getElementById("fecha").innerHTML =`Fecha: ${fecha}`;
-                    if (fondo >= ufmax*10) {
-                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(ufmax) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>` }
-                    else if (ufmin*10 <= fondo && fondo < ufmax*10) {
-                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(pago) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
-                    else if (fondo > ufmin && fondo < (ufmin)*10) {
-                        contenido.innerHTML = `<h4>Tu retiro será de: $${Math.round(ufmin) .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
-                    else {
-                        contenido.innerHTML = `<h4>Tu retiro será de: $${fondo .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</h>`}
-                    })
-                var enero = +document.getElementById("first-value").value;
-                var febrero = +document.getElementById("second-value").value;
-                var marzo = +document.getElementById("third-value").value;
-                var suma = enero + febrero + marzo;
-                var prom = suma/3;
-                var p_70 = 0.70;
-                var p_55 = 0.55;
-                var p_45 = 0.45;
-                var p_40 = 0.40;
-                var p_35 = 0.35;
-                document.getElementById("output1").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_70*prom));
-                document.getElementById("output2").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_55*prom));
-                document.getElementById("output3").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_45*prom));
-                document.getElementById("output4").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_40*prom));
-                document.getElementById("output5").innerHTML = new Intl.NumberFormat("es-CL", {style: "currency", currency: "CLP"}).format(Math.trunc(p_35*prom));  
-            } 
-            function nextFocus(inputF, inputS)    {
-            document.getElementById(inputF).addEventListener('keydown', function(event) {
-                if (event.keyCode == 13) {
-                    document.getElementById(inputS).focus();}
-            });}
-        </script>
-    </head>
-    <body>
-        <h1>Calcula tu retiro de fondos de la AFP (10%)</h2>
-        <br>
-        <div class="container text-center d-flex justify-content-center" ></div>
-        <p>Ingresa tu monto acumulado en la AFP<div class="input-group container text-center d-flex justify-content-center"></p>
-            <div class="input-group-prepend d-flex justify-content-center">
-              <span class="input-group-text" id="inputGroup-sizing-default">$</span>
-            <input type="tel" pattern="[0-9.]*" id="fondo" min="0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  oninput="oninputFunct()" onkeypress="nextFocus('fondo', 'first-value')"  >
-          </div>
-        </div>
-        <div class="container text-center">
-            <br>
-        <div id="contenido"></div>
-        <br>
-        <div class="table-responsive-sm">
-            <table style="margin: 0 auto;" class="table table-striped table table-bordered table table-hover table table-sm mx-auto w-auto table text-center" >
-            <caption><center>En caso que tu monto sea menor a 35 UF, el monto se pagará de una sola vez.</center></caption>
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<meta name="author" content=Jorge Ugarte Olguín>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Página web que permite calcular valores de Ley de Ohm y filtros RC, entre más...">
+		<title>Calculadora Electrónica</title>
+		<style>
+        		body	{ 
+           		 font-family: -apple-system,  
+               		 BlinkMacSystemFont, sans-serif;	}
+			p  	{
+				text-align: center;		}
+		</style>
+		<script>
+		function oninputFunct()	{
+			var frecuencia = +document.getElementById("first-value").value;
+			var resistencia = +document.getElementById("second-value").value;
+			var cap = 1000000 * 1/(2 * Math.PI * frecuencia * resistencia);
+			document.getElementById("output1").innerHTML = "El valor del condensador es: " + cap.toFixed(6) + " [uF]";
 
-                <tr>
-                    <th>Pagos</th>
-                    <th>Porcentaje</th>
-                    <!--  <th>Montos</th> -->
-                    <th>Fecha de pago</th>
-                </tr>
-                <tr>
-                    <td>Pago 1</td>
-                    <th>50 %</th>
-                    <!--  <td><p id="output1"></p></td> -->
-                    <td>En un plazo de 10 días hábiles tras presentar la solicitud en la AFP.</td>
-                </tr>
-                <tr>
-                    <td>Pago 2</td>
-                    <th>50 %</th>
-                    <!-- <td><p id="output1"></p></td> -->
-                    <td>En un plazo máximo de 30 días hábiles a contar del desembolso anterior.</td>
-                </tr>
-            </table>
-        </div>
-        <br>
-        <var><p id="uf"></p>
-        <p id="fecha"></p></var>
-        </div>
-        <hr>
-        <h1>Calculadora de Pago "Ley de Protección al Empleo”.</h1>
-        <br>
-        <p>Si usted tiene un CONTRATO A PLAZO INDEFINIDO, puedes conocer el valor que te deben pagar en los próximos 5 meses.</p>
-        <p>Escriba las siguientes <a href="#" data-toggle="tooltip" title="La Ley establece que, la remuneración es aquella de carácter imponible devengadas en los últimos tres meses en que se registren cotizaciones, anteriores al inicio de declaración de autoridad."*>remuneraciones.</a>
-        <div class="form-group">
+			var cap2 = +document.getElementById("3-value").value;
+			var res2 = +document.getElementById("4-value").value;
+			var fc = 1/(2 * Math.PI * cap2 * res2);
+			document.getElementById("output2").innerHTML = "El valor de la frecuencia de corte es: " + Math.round(fc) + " [Hz]";
 
+			var fre22 = +document.getElementById("11-value").value;
+			var cap22 = +document.getElementById("12-value").value;
+			var res22 = 1/(2 * Math.PI * fre22 * cap22);
+			document.getElementById("output6").innerHTML = "El valor de la resistencia es: " + Math.round(res22) + " [Ω]";
+	
+			var res = +document.getElementById("5-value").value;
+			var corriente = +document.getElementById("6-value").value;
+			var volt = corriente * res;
+			document.getElementById("output3").innerHTML = "El valor del voltaje es: " + volt + " [V]";
 
-            <div class="container text-center d-flex justify-content-center" ></div>
-            <p>enero<div class="input-group container text-center d-flex justify-content-center"></p>
-                <div class="input-group-prepend d-flex justify-content-center">
-                  <span class="input-group-text" id="inputGroup-sizing-default">$</span>
-                <input type="tel" pattern="[0-9.]*" id="first-value" min="0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  oninput="oninputFunct()" onkeypress="nextFocus('first-value', 'second-value')"  >
-              </div>
-            </div>
-            <div class="container text-center">
+			var corr3 = +document.getElementById("7-value").value;
+			var volt3 = +document.getElementById("8-value").value;
+			var res3 = volt3/corr3;
+			document.getElementById("output4").innerHTML = "El valor de la resistencia es: " + Math.round(res3) + " [Ω]";
 
-
-
-
-                <div class="container text-center d-flex justify-content-center" ></div>
-        <p>febrero<div class="input-group container text-center d-flex justify-content-center"></p>
-            <div class="input-group-prepend d-flex justify-content-center">
-              <span class="input-group-text" id="inputGroup-sizing-default">$</span>
-            <input type="tel" pattern="[0-9.]*" id="second-value" min="0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  oninput="oninputFunct()" onkeypress="nextFocus('second-value', 'third-value')"  >
-          </div>
-        </div>
-        <div class="container text-center">
-
-
-
-
-            <div class="container text-center d-flex justify-content-center" ></div>
-        <p>marzo<div class="input-group container text-center d-flex justify-content-center"></p>
-            <div class="input-group-prepend d-flex justify-content-center">
-              <span class="input-group-text" id="inputGroup-sizing-default">$</span>
-            <input type="tel" pattern="[0-9.]*" id="third-value" min="0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  oninput="oninputFunct()" onkeypress="nextFocus('third-value', '')"  >
-          </div>
-        </div>
-        <div class="container text-center">
-
-
-
-
-          </div>
-          <br>
-        <div class="table-responsive-sm">
-        <table style="margin: 0 auto;" class="table table-striped table table-bordered table table-hover table table-sm mx-auto w-auto table text-center" >
-            <caption><center>En la tercera columna "Cálculo Remuneración" aparecerá el promedio de los 3 meses con el porcentaje correspondiente, si este monto es menor al "Valor Inferior", se pagará el monto más alto, y viceversa con el "Valor Superior".</center></caption>
-            <tr>
-                <th>Meses</th>
-                <th>Promedio Remuneración</th>
-                <th>Cálculo Remuneración</th>
-                <th>Valor Inferior</th>
-                <th>Valor Superior</th>
-            </tr>
-            <tr>
-                <td>abril</rtd>
-                    <td>70%</td>
-                    <td><p id="output1"></p></td>
-                    <td>$225.000</td>
-                    <td>$652.956</td>
-                </tr>
-                <tr>
-                    <td>mayo</td>
-                    <td>55%</td>
-                    <td><p id="output2"></p></td>
-                    <td>$225.000</td>
-                    <td>$513.038</td>
-                </tr>
-                <tr>
-                    <td>junio</td>
-                    <td>45%</td>
-                    <td><p id="output3"></p></td>
-                    <td>$225.000</td>
-                    <td>$419.757</td>
-                </tr>
-                <tr>
-                    <td>julio</td>
-                    <td>40%</td>
-                    <td><p id="output4"></p></td>
-                    <td>$200.000</td>
-                    <td>$373.118</td>
-                </tr>
-                <tr>
-                    <td>agosto</td>
-                    <td>35%</td>
-                    <td><p id="output5"></p></td>
-                    <td>$175.000</td>
-                    <td>$326.478</td>
-                </tr>
-            </table>
-        </div>
-        <p>Lo primero que debes saber es que, inicialmente se ocuparán los fondos de la Cuenta Individual y luego cuando estos recursos se acaben, en forma automática operará el uso del Fondo Solidario de Cesantía. La fuente de información es la página oficial del Ministerio del Trabajo y Previsión Social. Plan de Acción COVID-19. Gobierno de Chile 2020.</p> 
-        <p><i><a href="http://www.protecciondelempleo.cl">http://www.protecciondelempleo.cl</a></i></p>
-    </body>
-    <hr>
-    <footer class="page-footer">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright: <a href="https://github.com/showiz">showiz</a>, <a href="https://github.com/lemon4k">lemon4k</a>, <a href="mailto: smolgra@gmail.com">Sebastián Moltedo</a> & <a href="https://github.com/jugarteo">jugarte</a></div>
-    </footer>
+			var volt2 = +document.getElementById("9-value").value;
+			var rest2 = +document.getElementById("10-value").value;
+			var corr2 = volt2/rest2;
+			document.getElementById("output5").innerHTML = "El valor de la corriente es de: " + corr2 + " [A]";
+			            }
+		</script>
+	</head>
+	<body>
+		<div class="container-fluid	">
+		<h1 style="text-align:center;">Calculadora de Circuitos Electrónicos</h1>
+		<p>Ley de Ohm:</p>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="24px"><mrow><mi>V</mi><mo>=</mo><mi>R</mi><mo>&#xB7;</mo><mi>i</mi></mrow></mstyle></math>
+		<center><code>V = voltaje;R = Resistencia;i = Corriente</code></center>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>R</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=resistencia[Ω] min="0" id="5-value" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=corriente[A]           id="6-value" oninput="oninputFunct()"></p>
+		<p id="output3"></p>
+		<br>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="24px"><mrow><mi>R</mi><mo>=</mo><mfrac><mi>V</mi><mi>i</mi></mfrac></mrow></mstyle></math>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>V</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=voltaje[V]   id="8-value" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>i</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=corriente[A] id="7-value" oninput="oninputFunct()"></p>
+		<p id="output4"></p>
+		<br>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="24px"><mrow><mi>i</mi><mo>=</mo><mfrac><mi>V</mi><mi>R</mi></mfrac></mrow></mstyle></math>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>V</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=voltaje[V]     min="0" id="9-value" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>R</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=resistencia[Ω]         id="10-value" oninput="oninputFunct()"></p>
+		<p id="output5"></p>
+		<hr>
+		<p>Filtro RC:</p>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="28px"><mrow><mi>C</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>&#x3C0;</mi><mi>f</mi><msub><mi>X</mi><mi>c</mi></msub></mrow></mfrac></mrow></mstyle></math>
+		<center><code style="text-align: center;">C = Condensador;f = Frecuencia;Xc = Reactancia capacitiva</code></center>
+    
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=frecuencia[Hz] id="first-value" min="0" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>X</mi><mi>c</mi></msub></math>: <input type="tel" pattern="[0-9.]*" placeholder=reactancia[Ω] min="0" id="second-value" oninput="oninputFunct()"></p>
+		<p id="output1"></p>
+		<br>
+		<p>Frecuencia de Corte:</p>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="28px"><msub><mi>f</mi><mi>c</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>&#x3C0;</mi><mi>R</mi><mi>C</mi></mrow></mfrac></mstyle></math>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>R</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=resistencia[Ω] min="0" id="3-value" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=condensador[F]         id="4-value" oninput="oninputFunct()"></p>
+		<p id="output2"></p>
+		<br>
+		<p><math style="font-family:'Times New Roman'" xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathsize="28px"><mrow><mi>R</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>&#x3C0;</mi><mi>f</mi><mi>C</mi></mrow></mfrac></mstyle></math>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=resistencia[Ω] min="0" id="11-value" oninput="oninputFunct()"></p>
+		<p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi></math>:<input type="tel" pattern="[0-9.]*" placeholder=condensador[F]         id="12-value" oninput="oninputFunct()"></p>
+		<p id="output6"></p>
+		</div>
+	</body>
+	<footer>
+		<hr>
+		<center><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/es/80x15.png" /></a></center>
+	</footer>
 </html>
